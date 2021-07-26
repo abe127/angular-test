@@ -27,16 +27,16 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Hydrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Helium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Lithium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Beryllium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Boron', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Carbon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Nitrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Oxygen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Fluorine', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Neon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
+  { name: 'Hydrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Helium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Lithium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Beryllium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Boron', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Carbon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Nitrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Oxygen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Fluorine', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
+  { name: 'Neon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県' },
 ];
 
 
@@ -45,7 +45,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
+    { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' },
 
     // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
     // `MatMomentDateModule` in your applications root module. We provide it at the component level
@@ -55,7 +55,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ]
 })
 export class AppComponent implements AfterViewInit, OnInit {
@@ -64,8 +64,8 @@ export class AppComponent implements AfterViewInit, OnInit {
   public dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   public modes: any = [];
   date = new FormControl(new Date());
-  public editingIndex: number|null = null;
-  
+  public editingIndex: number | null = null;
+
 
   public personData: PeriodicElement = {
     name: '',

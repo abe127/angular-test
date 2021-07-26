@@ -48,6 +48,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { AppRoutingModule } from './app-routing.module';
 import { AbeComponent } from './abe/abe.component';
 import { KusanoComponent } from './kusano/kusano.component';
+import { SampleComponent } from './sample/sample.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { KusanoComponent } from './kusano/kusano.component';
     AbeComponent,
     KusanoComponent,
     DialogComponent,
+    SampleComponent,
   ],
   imports: [
     FormsModule,
