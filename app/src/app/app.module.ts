@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+
+// import { AngularMaterialImportModule } from './material/mat-shared.module';
+import { DialogComponent } from './component/dialog/dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -43,13 +47,18 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AbeComponent } from './abe/abe.component';
+import { KusanoComponent } from './kusano/kusano.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AbeComponent
+    AbeComponent,
+    KusanoComponent,
+    DialogComponent,
   ],
   imports: [
+    FormsModule,
+    // AngularMaterialImportModule,
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

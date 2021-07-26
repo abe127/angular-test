@@ -16,7 +16,7 @@ import 'moment/locale/ja';
 import KenAll from 'ken-all';
 
 
-import { DialogComponent } from './component/dialog/dialog.component';
+import { DialogComponent } from '../component/dialog/dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -38,12 +38,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {name: 'Fluorine', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
   {name: 'Neon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
 ];
-
-
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-kusano',
+  templateUrl: './kusano.component.html',
+  styleUrls: ['./kusano.component.scss'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'ja-JP'},
 
@@ -58,8 +56,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ]
 })
-export class AppComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class KusanoComponent implements OnInit {
+@ViewChild(MatPaginator) paginator!: MatPaginator;
   public displayedColumns: string[] = ['name', 'birthday', 'age', 'zipCode', 'prefectures', 'actions'];
   public dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   public modes: any = [];
