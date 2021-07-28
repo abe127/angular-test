@@ -1,0 +1,23 @@
+div.container{
+    width: 100%;
+    padding: 10px;
+    table{
+        width: 75%;
+        margin: auto;
+    }
+}
+
+div.content{
+    padding: 5px;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 100%;
+    mat-form-field{
+        margin: 10px;
+    }
+}
+
+.example-full-width {
+    width: 100%;
+}

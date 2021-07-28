@@ -49,6 +49,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AbeComponent } from './abe/abe.component';
 import { KusanoComponent } from './kusano/kusano.component';
 import { SampleComponent } from './sample/sample.component';
+import { NakamuraComponent } from './nakamura/nakamura.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SampleComponent } from './sample/sample.component';
     AbeComponent,
     KusanoComponent,
     DialogComponent,
+    NakamuraComponent,
     SampleComponent,
   ],
   imports: [
