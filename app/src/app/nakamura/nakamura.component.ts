@@ -51,13 +51,6 @@ export class NakamuraComponent {
   addPerson(){
     this.dataSource.push(this.person);
     this.table?.renderRows();
-    this.initPerson();
-  }
-
-  initPerson(){
     this.person.no = this.dataSource.length;
-    this.person.name = '';
-    this.person.birthday = new Date();
-    this.person.age = 0;
   }
 }
