@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
+
 import 'moment/locale/ja';
 import KenAll from 'ken-all';
 
@@ -20,23 +21,23 @@ import { DialogComponent } from '../component/dialog/dialog.component';
 
 export interface PeriodicElement {
   name: string;
-  birthday: string | Date;
+  birthday: Date;
   age: number;
   zipCode: number;
   prefectures: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {name: 'Hydrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Helium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Lithium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Beryllium', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Boron', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Carbon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Nitrogen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Oxygen', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Fluorine', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
-  {name: 'Neon', birthday: '1997/03/20', age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Hydrogen', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Helium', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Lithium', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Beryllium', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Boron', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Carbon', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Nitrogen', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Oxygen', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Fluorine', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
+  {name: 'Neon', birthday: new Date(), age: 24, zipCode: 9634203, prefectures: '福島県'},
 ];
 @Component({
   selector: 'app-kusano',
@@ -56,8 +57,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ]
 })
-export class KusanoComponent implements OnInit {
-@ViewChild(MatPaginator) paginator!: MatPaginator;
+export class KusanoComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   public displayedColumns: string[] = ['name', 'birthday', 'age', 'zipCode', 'prefectures', 'actions'];
   public dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   public modes: any = [];
@@ -67,7 +68,7 @@ export class KusanoComponent implements OnInit {
 
   public personData: PeriodicElement = {
     name: '',
-    birthday: '',
+    birthday: new Date(),
     age: 0,
     zipCode: 0,
     prefectures: ''
@@ -78,6 +79,9 @@ export class KusanoComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializationModes();
+    this.dataSource.data.forEach(data => {
+      data.age = this.calcAge(data.birthday);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -86,7 +90,8 @@ export class KusanoComponent implements OnInit {
 
   register(): void {
     this.dataSource.data.push(this.personData);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource._updateChangeSubscription();
+
     this.initializationModes();
   }
 
@@ -107,14 +112,22 @@ export class KusanoComponent implements OnInit {
         return;
       }
       this.dataSource.data.splice(index, 1);
-      this.dataSource.paginator = this.paginator;
+      this.dataSource._updateChangeSubscription();
     });
   }
 
-  getAge(type: string, event: MatDatepickerInputEvent<Date>): void {
+  getAge(event: MatDatepickerInputEvent<Date>): void {
+    console.log(typeof (event.value));
+    if (!event.value) {
+      return;
+    }
+    this.personData.age = this.calcAge(event.value);
+  }
+
+  calcAge(value: Date): number {
     const currentDate = moment();
-    const birthday = moment(event.value);
-    this.personData.age = currentDate.diff(birthday, 'year');
+    const birthday = moment(value);
+    return currentDate.diff(birthday, 'year');
   }
 
   edit(index: number): void {

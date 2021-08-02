@@ -11,9 +11,10 @@
 
         <mat-form-field class="mat-field" appearance="outline">
             <mat-label>生年月日</mat-label>
-            <input matInput [matDatepicker]="dp" [value]="personData.birthday" (dateChange)="getAge('change', $event)">
+            <input matInput [matDatepicker]="dp" [value]="personData.birthday" (dateChange)="getAge($event)">
             <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
-            <mat-datepicker #dp></mat-datepicker>
+            <mat-datepicker #dp startView="multi-year"
+            ></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="mat-field" appearance="outline">
@@ -51,7 +52,7 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="birthday">
             <th mat-header-cell *matHeaderCellDef> 生年月日 </th>
-            <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.birthday | date:'YYYY/MM/dd'}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
