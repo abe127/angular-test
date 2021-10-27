@@ -1,0 +1,9 @@
+<div class="container">
+  <p>{{questionCount}}問目</p>
+  <p>{{quiz?.question}}</p>
+  <div class="choices-container">
+    <button mat-raised-button *ngFor="let choice of quiz?.choices" (click)="chooseAnswer(choice)">
+      {{choice.statement}}
+    </button>
+  </div>
+</div>
