@@ -5,18 +5,26 @@ import { AbeComponent } from './abe/abe.component';
 import { KusanoComponent } from './kusano/kusano.component';
 import { NakamuraComponent } from './nakamura/nakamura.component';
 import { SampleComponent } from './sample/sample.component';
+import { HomeComponent } from './pages/home/home.component';
+import { QuizComponent } from './pages/quiz/quiz.component';
+import { ResultComponent } from './pages/result/result.component';
 
 const routes: Routes = [
   { path: 'abe', component: AbeComponent },
   { path: 'kusano', component: KusanoComponent },
   { path: 'nakamura', component: NakamuraComponent },
-  { path: 'sample', component: SampleComponent }
+  { path: 'sample', component: SampleComponent },
+  { path: 'home', component: HomeComponent},
+  { path: 'quiz', component: QuizComponent},
+  { path: 'result', component: ResultComponent},
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload'
+    })
   ],
   exports: [RouterModule]
 })
