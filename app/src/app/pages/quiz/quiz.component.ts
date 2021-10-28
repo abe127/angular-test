@@ -38,7 +38,7 @@ export class QuizComponent implements OnInit {
   chooseAnswer(choice: Choice) {
     this.quizService.checkAnswer(choice);
 
-    if(localStorage.getItem('isConfirmAnswer') === 'true'){
+    if(this.quizService.isConfirmAnswer){
       const dialogData = {
         isCorrect: choice.isAnswer,
         explanation: this.quiz?.explanation,
