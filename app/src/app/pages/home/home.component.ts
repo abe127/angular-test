@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
     this.quizService.initQuiz();
   }
 
-  startQuiz() {
+  startQuiz(isConfirmAnswer:boolean) {
+    localStorage.setItem('isConfirmAnswer', isConfirmAnswer ? 'true':'false');
     this.quizService.startQuiz();
   }
 
