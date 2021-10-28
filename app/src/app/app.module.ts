@@ -53,6 +53,7 @@ import { NakamuraComponent } from './nakamura/nakamura.component';
 import { HomeComponent } from './pages/home/home.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { ResultComponent } from './pages/result/result.component';
+import { ConfirmComponent } from './pages/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ResultComponent } from './pages/result/result.component';
     HomeComponent,
     QuizComponent,
     ResultComponent,
+    ConfirmComponent,
   ],
   imports: [
     FormsModule,
