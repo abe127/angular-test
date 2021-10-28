@@ -8,13 +8,13 @@ export interface DialogData {
 
 
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.scss']
+  selector: 'app-confirm-dialog',
+  templateUrl: './confirm-dialog.component.html',
+  styleUrls: ['./confirm-dialog.component.scss']
 })
-export class ConfirmComponent implements OnInit {
+export class ConfirmDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<ConfirmComponent>,
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

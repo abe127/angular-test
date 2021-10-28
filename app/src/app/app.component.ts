@@ -16,7 +16,7 @@ import 'moment/locale/ja';
 import KenAll from 'ken-all';
 
 
-import { DialogComponent } from './component/dialog/dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 export interface PeriodicElement {
   name: string;

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Quiz, Choice } from 'src/app/const/quiz';
 import { QuizService } from 'src/app/services/quiz.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../confirm/confirm.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 
 @Component({

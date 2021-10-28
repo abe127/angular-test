@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 // import { AngularMaterialImportModule } from './material/mat-shared.module';
-import { DialogComponent } from './component/dialog/dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -53,7 +53,7 @@ import { NakamuraComponent } from './nakamura/nakamura.component';
 import { HomeComponent } from './pages/home/home.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { ResultComponent } from './pages/result/result.component';
-import { ConfirmComponent } from './pages/confirm/confirm.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,7 @@ import { ConfirmComponent } from './pages/confirm/confirm.component';
     HomeComponent,
     QuizComponent,
     ResultComponent,
-    ConfirmComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     FormsModule,
