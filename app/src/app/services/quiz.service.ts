@@ -38,10 +38,11 @@ export class QuizService {
     return this.quizzes[this.questionCount - 1];
   }
 
-  checkAnswer(choice: Choice): void {
+  checkAnswer(choice: Choice): boolean {
     if (choice.isAnswer) ++this.answerCount;
 
     ++this.questionCount;
+    return choice.isAnswer;
   }
 
   nextPage(): void {
