@@ -43,13 +43,17 @@ export class QuizComponent implements OnInit {
         isCorrect: choice.isAnswer,
         explanation: this.quiz?.explanation,
       };
-      this.dialog.open(ConfirmComponent,{
+      const dialogRef = this.dialog.open(ConfirmDialogComponent,{
         width: '60vw',
-        height: '50vh',
-        data: dialogData
+        data: dialogData,
+        disableClose: true
       });
+      dialogRef.afterClosed().subscribe(() => {
+        this.quizService.nextPage();
+      });
+    }else{
+      this.quizService.nextPage();
     }
-    this.quizService.nextPage();
   }
 
 }
