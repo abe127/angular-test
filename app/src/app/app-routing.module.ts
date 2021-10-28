@@ -23,6 +23,7 @@ const routes: Routes = [
   declarations: [],
   imports: [
     RouterModule.forRoot(routes, {
+      // 現在のURLに遷移する場合もreloadするよう設定
       onSameUrlNavigation: 'reload'
     })
   ],

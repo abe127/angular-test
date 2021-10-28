@@ -60,7 +60,7 @@ export const QUIZ_DATA: Quiz[] = [
       },
       {
         statement: '京都',
-        isAnswer: true
+        isAnswer: false
       },
       {
         statement: '名古屋',

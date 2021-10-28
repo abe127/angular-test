@@ -17,6 +17,7 @@ export class QuizComponent implements OnInit {
     private router: Router,
     private quizService: QuizService
   ) {
+    // 同一ルートへ遷移する場合shouldReuseRouteにはtrueが入るため強制的にfalse設定する
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
