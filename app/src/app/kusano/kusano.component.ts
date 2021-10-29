@@ -17,7 +17,7 @@ import 'moment/locale/ja';
 import KenAll from 'ken-all';
 
 
-import { DialogComponent } from '../component/dialog/dialog.component';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -64,7 +64,7 @@ export class KusanoComponent implements OnInit, AfterViewInit {
   public modes: any = [];
   date = new FormControl(new Date());
   public editingIndex: number|null = null;
-  
+
 
   public personData: PeriodicElement = {
     name: '',

@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
     this.quizService.initQuiz();
   }
 
-  startQuiz() {
-    this.quizService.startQuiz();
+  startQuiz(isConfirmAnswer:boolean) {
+    this.quizService.startQuiz(isConfirmAnswer);
   }
 
 }

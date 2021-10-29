@@ -14,6 +14,7 @@ export class QuizService {
   questionCount: number = 0;
   answerCount: number = 0;
   isQuizzing: boolean = false;
+  isConfirmAnswer: boolean = false;
 
   constructor(
     private router: Router
@@ -26,12 +27,13 @@ export class QuizService {
     this.isQuizzing = false;
   }
 
-  startQuiz(): void {
+  startQuiz(isConfirmAnswer: boolean): void {
     this.quizzes = _.sampleSize(QUIZ_DATA, QUIZ_COUNT);
     this.questionCount = 1;
     this.answerCount = 0;
     this.isQuizzing = true;
     this.router.navigate(['quiz']);
+    this.isConfirmAnswer = isConfirmAnswer;
   }
 
   getQuiz(): Quiz {

@@ -1,0 +1,13 @@
+.button-container{
+  float: right;
+}
+.mat-dialog-title{
+  font-size: 2em;
+  text-align: center;
+  .isCorrect{
+    color: #ff6347;
+  }
+  .isNotCorrect{
+    color: #4169e1;
+  }
+}
