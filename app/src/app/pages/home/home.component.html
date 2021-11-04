@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="result-container">
+    <h2>正解率 {{correctAnswerRate}} %</h2>
+    <p>出題数:{{totalQuestions}}問 正解数:{{totalAnswers}}問</p>
+  </div>
   <p>
     <button mat-raised-button color="primary" (click)="startQuiz(false)">クイズスタート</button>
   </p>

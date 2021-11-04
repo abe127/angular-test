@@ -8,13 +8,18 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  totalAnswers: number = 0;
+  totalQuestions: number = 0;
+  correctAnswerRate: number = 0;
   constructor(
     private quizService: QuizService
   ) { }
 
   ngOnInit(): void {
     this.quizService.initQuiz();
+    this.totalAnswers = this.quizService.totalAnswers;
+    this.totalQuestions = this.quizService.totalQuestions;
+    this.correctAnswerRate = Math.round(this.totalAnswers * 100 / this.totalQuestions);
   }
 
   startQuiz(isConfirmAnswer:boolean) {

@@ -15,6 +15,8 @@ export class QuizService {
   answerCount: number = 0;
   isQuizzing: boolean = false;
   isConfirmAnswer: boolean = false;
+  totalQuestions: number = 0;
+  totalAnswers: number = 0;
 
   constructor(
     private router: Router
@@ -25,6 +27,13 @@ export class QuizService {
     this.questionCount = 0;
     this.answerCount = 0;
     this.isQuizzing = false;
+    const storedResult = localStorage.getItem('question-total-result');
+    if(storedResult){
+      JSON.parse(storedResult, (key ,value)=>{
+        if(key === "totalQuestions") this.totalQuestions = value
+        else if(key === "totalAnswers") this.totalAnswers = value;
+      });
+    }
   }
 
   startQuiz(isConfirmAnswer: boolean): void {
@@ -55,6 +64,17 @@ export class QuizService {
   }
 
   endQuiz(): void {
+    this.setResult()
     this.initQuiz();
+  }
+
+  setResult(): void{
+    const storedResult = localStorage.getItem('question-total-result');
+    const newResult = {
+      totalQuestions : this.totalQuestions + this.questionCount - 1,
+      totalAnswers: this.totalAnswers + this.answerCount
+    }
+
+    localStorage.setItem('question-total-result', JSON.stringify(newResult));
   }
 }
