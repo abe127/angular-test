@@ -71,7 +71,7 @@ export class QuizService {
   setResult(): void{
     const storedResult = localStorage.getItem('question-total-result');
     const newResult = {
-      totalQuestions : this.totalQuestions + this.questionCount - 1,
+      totalQuestions : this.totalQuestions + QUIZ_COUNT,
       totalAnswers: this.totalAnswers + this.answerCount
     }
 
