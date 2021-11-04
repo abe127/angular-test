@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     this.quizService.initQuiz();
     this.totalAnswers = this.quizService.totalAnswers;
     this.totalQuestions = this.quizService.totalQuestions;
-    this.correctAnswerRate = Math.round(this.totalAnswers * 100 / this.totalQuestions);
+    this.correctAnswerRate = this.totalQuestions > 0 ? Math.round(this.totalAnswers * 100 / this.totalQuestions) : 0;
   }
 
   startQuiz(isConfirmAnswer:boolean) {
