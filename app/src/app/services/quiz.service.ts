@@ -10,49 +10,49 @@ const QUIZ_COUNT = 2;
   providedIn: 'root'
 })
 export class QuizService {
-  quizzes: any;
-  questionCount: number = 0;
-  answerCount: number = 0;
-  isQuizzing: boolean = false;
-  isConfirmAnswer: boolean = false;
-  totalQuestions: number = 0;
-  totalAnswers: number = 0;
+  private _quizzes: any;
+  private _questionCount: number = 0;
+  private _answerCount: number = 0;
+  private _isQuizzing: boolean = false;
+  private _isConfirmAnswer: boolean = false;
+  private _totalQuestions: number = 0;
+  private _totalAnswers: number = 0;
 
   constructor(
     private router: Router
   ) { }
 
   initQuiz(): void {
-    this.quizzes = null;
-    this.questionCount = 0;
-    this.answerCount = 0;
-    this.isQuizzing = false;
+    this._quizzes = null;
+    this._questionCount = 0;
+    this._answerCount = 0;
+    this._isQuizzing = false;
     const storedResult = localStorage.getItem('question-total-result');
     if(storedResult){
       JSON.parse(storedResult, (key ,value)=>{
-        if(key === "totalQuestions") this.totalQuestions = value
-        else if(key === "totalAnswers") this.totalAnswers = value;
+        if(key === "totalQuestions") this._totalQuestions = value
+        else if(key === "totalAnswers") this._totalAnswers = value;
       });
     }
   }
 
   startQuiz(isConfirmAnswer: boolean): void {
-    this.quizzes = _.sampleSize(QUIZ_DATA, QUIZ_COUNT);
-    this.questionCount = 1;
-    this.answerCount = 0;
-    this.isQuizzing = true;
+    this._quizzes = _.sampleSize(QUIZ_DATA, QUIZ_COUNT);
+    this._questionCount = 1;
+    this._answerCount = 0;
+    this._isQuizzing = true;
     this.router.navigate(['quiz']);
-    this.isConfirmAnswer = isConfirmAnswer;
+    this._isConfirmAnswer = isConfirmAnswer;
   }
 
   getQuiz(): Quiz {
-    return this.quizzes[this.questionCount - 1];
+    return this._quizzes[this.questionCount - 1];
   }
 
   checkAnswer(choice: Choice): void {
-    if (choice.isAnswer) ++this.answerCount;
+    if (choice.isAnswer) ++this._answerCount;
 
-    ++this.questionCount;
+    ++this._questionCount;
   }
 
   nextPage(): void {
@@ -77,4 +77,24 @@ export class QuizService {
 
     localStorage.setItem('question-total-result', JSON.stringify(newResult));
   }
+
+  get questionCount(): number{
+    return this._questionCount;
+  }
+  get answerCount(): number{
+    return this._answerCount;
+  }
+  get isQuizzing(): boolean{
+    return this._isQuizzing;
+  }
+  get isConfirmAnswer(): boolean{
+    return this._isConfirmAnswer;
+  }
+  get totalQuestions(): number{
+    return this._totalQuestions;
+  }
+  get totalAnswers(): number{
+    return this._totalAnswers;
+  }
+
 }
