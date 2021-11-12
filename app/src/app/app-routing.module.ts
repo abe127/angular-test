@@ -14,9 +14,10 @@ const routes: Routes = [
   { path: 'kusano', component: KusanoComponent },
   { path: 'nakamura', component: NakamuraComponent },
   { path: 'sample', component: SampleComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'quiz', component: QuizComponent},
-  { path: 'result', component: ResultComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'quiz', component: QuizComponent },
+  { path: 'result', component: ResultComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
