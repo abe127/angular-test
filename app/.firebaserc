@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "angular-test-abe"
+  },
+  "targets": {
+    "angular-test-abe": {
+      "hosting": {
+        "app": [
+          "angular-test-abe"
+        ]
+      }
+    }
   }
 }
