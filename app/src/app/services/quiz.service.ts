@@ -20,40 +20,35 @@ export class QuizService {
   private _isConfirmAnswer: boolean = false;
   private _totalQuestions: number = 0;
   private _totalAnswers: number = 0;
-  quiz_collection?:Observable<Quiz[]>;
 
   constructor(
     private router: Router,
     private firestore: AngularFirestore,
     ) {}
 
-
   initQuiz(): void {
     this._quizzes = [];
     this._questionCount = 0;
     this._answerCount = 0;
     this._isQuizzing = false;
-    const storedResult = localStorage.getItem('question-total-result')??'';
-    const parsedResult = JSON.parse(storedResult)
-    this._totalQuestions = parsedResult.totalQuestions;
-    this._totalAnswers = parsedResult.totalAnswers;
-    // JSON.parse(storedResult, (key ,value)=>{
-    //   if(key === "totalQuestions") this._totalQuestions = value
-    //   else if(key === "totalAnswers") this._totalAnswers = value;
-    // });
+    const storedResult = localStorage.getItem('question-total-result')??false;
+    if(storedResult){
+      const parsedResult = JSON.parse(storedResult)
+      this._totalQuestions = parsedResult.totalQuestions??0;
+      this._totalAnswers = parsedResult.totalAnswers??0;
+    }
   }
 
   startQuiz(isConfirmAnswer: boolean) {
     const quizCollection = this.firestore.collection<Quiz>('quizzes');
-    quizCollection.valueChanges().subscribe(arg => {
-      this._quizzes = _.sampleSize(arg, QUIZ_COUNT);
+    quizCollection.valueChanges().subscribe(quizzes => {
+      this._quizzes = _.sampleSize(quizzes, QUIZ_COUNT);
       this._questionCount = 1;
       this._answerCount = 0;
       this._isQuizzing = true;
       this._isConfirmAnswer = isConfirmAnswer;
       this.router.navigate(['quiz']);
     });
-
   }
 
   getQuiz(): Quiz {
@@ -62,8 +57,8 @@ export class QuizService {
 
   checkAnswer(choice: Choice): void {
     if (choice.isAnswer) ++this._answerCount;
-
     ++this._questionCount;
+    this.nextPage()
   }
 
   nextPage(): void {
@@ -84,7 +79,6 @@ export class QuizService {
       totalQuestions : this.totalQuestions + QUIZ_COUNT,
       totalAnswers: this.totalAnswers + this.answerCount
     }
-
     localStorage.setItem('question-total-result', JSON.stringify(newResult));
   }
 
