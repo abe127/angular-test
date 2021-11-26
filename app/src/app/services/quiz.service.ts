@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 
 import { Choice, Quiz, QUIZ_DATA } from '../const/quiz';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 const QUIZ_COUNT = 2;
 
@@ -10,39 +13,47 @@ const QUIZ_COUNT = 2;
   providedIn: 'root'
 })
 export class QuizService {
-  private _quizzes: any;
+  private _quizzes!: Quiz[];
   private _questionCount: number = 0;
   private _answerCount: number = 0;
   private _isQuizzing: boolean = false;
   private _isConfirmAnswer: boolean = false;
   private _totalQuestions: number = 0;
   private _totalAnswers: number = 0;
+  quiz_collection?:Observable<Quiz[]>;
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private firestore: AngularFirestore,
+    ) {}
+
 
   initQuiz(): void {
-    this._quizzes = null;
+    this._quizzes = [];
     this._questionCount = 0;
     this._answerCount = 0;
     this._isQuizzing = false;
-    const storedResult = localStorage.getItem('question-total-result');
-    if(storedResult){
-      JSON.parse(storedResult, (key ,value)=>{
-        if(key === "totalQuestions") this._totalQuestions = value
-        else if(key === "totalAnswers") this._totalAnswers = value;
-      });
-    }
+    const storedResult = localStorage.getItem('question-total-result')??'';
+    const parsedResult = JSON.parse(storedResult)
+    this._totalQuestions = parsedResult.totalQuestions;
+    this._totalAnswers = parsedResult.totalAnswers;
+    // JSON.parse(storedResult, (key ,value)=>{
+    //   if(key === "totalQuestions") this._totalQuestions = value
+    //   else if(key === "totalAnswers") this._totalAnswers = value;
+    // });
   }
 
-  startQuiz(isConfirmAnswer: boolean): void {
-    this._quizzes = _.sampleSize(QUIZ_DATA, QUIZ_COUNT);
-    this._questionCount = 1;
-    this._answerCount = 0;
-    this._isQuizzing = true;
-    this.router.navigate(['quiz']);
-    this._isConfirmAnswer = isConfirmAnswer;
+  startQuiz(isConfirmAnswer: boolean) {
+    const quizCollection = this.firestore.collection<Quiz>('quizzes');
+    quizCollection.valueChanges().subscribe(arg => {
+      this._quizzes = _.sampleSize(arg, QUIZ_COUNT);
+      this._questionCount = 1;
+      this._answerCount = 0;
+      this._isQuizzing = true;
+      this._isConfirmAnswer = isConfirmAnswer;
+      this.router.navigate(['quiz']);
+    });
+
   }
 
   getQuiz(): Quiz {
@@ -69,7 +80,6 @@ export class QuizService {
   }
 
   setResult(): void{
-    const storedResult = localStorage.getItem('question-total-result');
     const newResult = {
       totalQuestions : this.totalQuestions + QUIZ_COUNT,
       totalAnswers: this.totalAnswers + this.answerCount
