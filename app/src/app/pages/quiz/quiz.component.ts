@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Quiz, Choice, QUIZ_DATA} from 'src/app/const/quiz';
+import { Quiz, Choice } from 'src/app/const/quiz';
 import { QuizService } from 'src/app/services/quiz.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
-import { doc, addDoc, collection } from "firebase/firestore";
-import { getFirestore } from '@angular/fire/firestore';
 
 
 @Component({
@@ -18,9 +16,6 @@ import { getFirestore } from '@angular/fire/firestore';
 export class QuizComponent implements OnInit {
   quiz?: Quiz;
   questionCount?: number;
-  db?:any;
-
-
 
   constructor(
     private router: Router,
@@ -29,7 +24,6 @@ export class QuizComponent implements OnInit {
     ) {
     // 同一ルートへ遷移する場合shouldReuseRouteにはtrueが入るため強制的にfalse設定する
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.db = getFirestore();
   }
 
   ngOnInit(): void {
@@ -40,14 +34,6 @@ export class QuizComponent implements OnInit {
     } else {
       this.router.navigate(['home']);
     }
-  }
-
-  addDoc(): void {
-    QUIZ_DATA.forEach( q => {
-      const docRef = addDoc(collection(this.db, "quizzes"), q);
-      console.log(docRef)
-    })
-
   }
 
   chooseAnswer(choice: Choice) {
