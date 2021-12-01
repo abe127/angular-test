@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 
-import { Choice, Quiz, QUIZ_DATA } from '../const/quiz';
+import { Choice, Quiz } from 'src/app/const/quizInterface';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
