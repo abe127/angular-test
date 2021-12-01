@@ -46,7 +46,3 @@ Thumbs.db
 
 # Firebase
 .firebase
-
-# env
-environment.ts
-environment.prod.ts
