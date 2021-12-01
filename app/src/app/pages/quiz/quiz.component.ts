@@ -15,7 +15,7 @@ import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 })
 export class QuizComponent implements OnInit {
   quiz?: Quiz;
-  questionCount?: number;
+  quizCount?: number;
 
   constructor(
     private router: Router,
@@ -30,7 +30,7 @@ export class QuizComponent implements OnInit {
     if (this.quizService.isQuizzing) {
       this.quiz = this.quizService.getQuiz();
       this.quiz.choices = _.shuffle(this.quiz.choices);
-      this.questionCount = this.quizService.questionCount;
+      this.quizCount = this.quizService.quizCount;
     } else {
       this.router.navigate(['home']);
     }
