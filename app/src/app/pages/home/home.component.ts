@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { QuizService } from 'src/app/services/quiz.service';
 
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
   totalQuizCount: number = 0;
   correctAnswerRate: number = 0;
   constructor(
+    private router: Router,
     private quizService: QuizService
   ) { }
 
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
 
   startQuiz(isConfirmAnswer:boolean) {
     this.quizService.startQuiz(isConfirmAnswer);
+    this.router.navigate(['quiz']);
   }
 
 }

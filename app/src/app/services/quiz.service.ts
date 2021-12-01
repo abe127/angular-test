@@ -56,7 +56,6 @@ export class QuizService {
       this._correctCount = 0;
       this._isQuizzing = true;
       this._isConfirmAnswer = isConfirmAnswer;
-      this.router.navigate(['quiz']);
     });
   }
 
