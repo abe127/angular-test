@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 
-import { Choice, Quiz, QUIZ_DATA } from '../const/quiz';
+import { Choice, Quiz } from '../const/quiz';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 const QUIZ_COUNT = 2;
 
@@ -10,39 +11,51 @@ const QUIZ_COUNT = 2;
   providedIn: 'root'
 })
 export class QuizService {
-  private _quizzes: any;
+  // 出題する問題を格納する変数
+  private _quizzes: Quiz[] = [];
+  // 出題数、正答数、総出題数、総正答数
   private _questionCount: number = 0;
   private _answerCount: number = 0;
-  private _isQuizzing: boolean = false;
-  private _isConfirmAnswer: boolean = false;
   private _totalQuestions: number = 0;
   private _totalAnswers: number = 0;
+  // クイズを実行中かどうかのフラグ値
+  private _isQuizzing: boolean = false;
+  // 回答後に正否確認をするかどうかのフラグ値
+  private _isConfirmAnswer: boolean = false;
 
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private firestore: AngularFirestore,
+    ) {}
 
+  // homeのngOnInitから実行される
+  // 出題する問題やカウントの初期化、フラグの初期化
   initQuiz(): void {
-    this._quizzes = null;
+    this._quizzes = [];
     this._questionCount = 0;
     this._answerCount = 0;
     this._isQuizzing = false;
-    const storedResult = localStorage.getItem('question-total-result');
+    // ローカルストレージから過去の総出題数、総正答数を取得
+    const storedResult = localStorage.getItem('question-total-result')??false;
     if(storedResult){
-      JSON.parse(storedResult, (key ,value)=>{
-        if(key === "totalQuestions") this._totalQuestions = value
-        else if(key === "totalAnswers") this._totalAnswers = value;
-      });
+      const parsedResult = JSON.parse(storedResult)
+      this._totalQuestions = parsedResult.totalQuestions??0;
+      this._totalAnswers = parsedResult.totalAnswers??0;
     }
   }
 
-  startQuiz(isConfirmAnswer: boolean): void {
-    this._quizzes = _.sampleSize(QUIZ_DATA, QUIZ_COUNT);
-    this._questionCount = 1;
-    this._answerCount = 0;
-    this._isQuizzing = true;
-    this.router.navigate(['quiz']);
-    this._isConfirmAnswer = isConfirmAnswer;
+  // homeの「クイズスタート」ボタンから実行される
+  // これから出題する問題の取得、出題数、正答数を初期化
+  startQuiz(isConfirmAnswer: boolean) {
+    const quizCollection = this.firestore.collection<Quiz>('quizzes');
+    quizCollection.valueChanges().subscribe(quizzes => {
+      this._quizzes = _.sampleSize(quizzes, QUIZ_COUNT);
+      this._questionCount = 1;
+      this._answerCount = 0;
+      this._isQuizzing = true;
+      this._isConfirmAnswer = isConfirmAnswer;
+      this.router.navigate(['quiz']);
+    });
   }
 
   getQuiz(): Quiz {
@@ -51,8 +64,8 @@ export class QuizService {
 
   checkAnswer(choice: Choice): void {
     if (choice.isAnswer) ++this._answerCount;
-
     ++this._questionCount;
+    this.nextPage()
   }
 
   nextPage(): void {
@@ -68,16 +81,16 @@ export class QuizService {
     this.initQuiz();
   }
 
+  // 総出題数、総正答数を更新してローカルストレージへ保存
   setResult(): void{
-    const storedResult = localStorage.getItem('question-total-result');
     const newResult = {
       totalQuestions : this.totalQuestions + QUIZ_COUNT,
       totalAnswers: this.totalAnswers + this.answerCount
     }
-
     localStorage.setItem('question-total-result', JSON.stringify(newResult));
   }
 
+  // 上記で宣言したprivateな変数のgetter
   get questionCount(): number{
     return this._questionCount;
   }
