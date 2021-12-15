@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 
 import { Choice, Quiz } from 'src/app/interfaces/quizInterface';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 const QUIZ_COUNT = 2;
@@ -32,7 +30,7 @@ export class QuizService {
 
   // homeのngOnInitから実行される
   // 出題する問題やカウントの初期化、フラグの初期化
-  initQuiz(): void {
+  initQuizGame(): void {
     this._quizzes = [];
     this._quizCount = 0;
     this._correctCount = 0;
@@ -48,7 +46,7 @@ export class QuizService {
 
   // homeの「クイズスタート」ボタンから実行される
   // これから出題する問題の取得、出題数、正答数を初期化
-  startQuiz(isConfirmAnswer: boolean) {
+  startQuizGame(isConfirmAnswer: boolean) {
     const quizCollection = this.firestore.collection<Quiz>('quizzes');
     quizCollection.valueChanges().subscribe(quizzes => {
       this._quizzes = _.sampleSize(quizzes, QUIZ_COUNT);
@@ -79,7 +77,7 @@ export class QuizService {
 
   endQuiz(): void {
     this.setResult()
-    this.initQuiz();
+    this.initQuizGame();
   }
 
   // 総出題数、総正答数を更新してローカルストレージへ保存

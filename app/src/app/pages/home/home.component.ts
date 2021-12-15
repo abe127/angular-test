@@ -18,14 +18,14 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.quizService.initQuiz();
+    this.quizService.initQuizGame();
     this.totalCorrectCount = this.quizService.totalCorrectCount;
     this.totalQuizCount = this.quizService.totalQuizCount;
     this.correctAnswerRate = this.totalQuizCount > 0 ? Math.round(this.totalCorrectCount * 100 / this.totalQuizCount) : 0;
   }
 
   startQuiz(isConfirmAnswer:boolean) {
-    this.quizService.startQuiz(isConfirmAnswer);
+    this.quizService.startQuizGame(isConfirmAnswer);
     this.router.navigate(['quiz']);
   }
 
