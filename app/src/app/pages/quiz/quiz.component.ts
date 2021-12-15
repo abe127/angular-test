@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Quiz, Choice } from 'src/app/const/quizInterface';
+import { Quiz, Choice } from 'src/app/interfaces/quizInterface';
 import { QuizService } from 'src/app/services/quiz.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';

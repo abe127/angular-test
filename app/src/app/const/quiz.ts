@@ -1,4 +1,4 @@
-import { Quiz } from "./quizInterface";
+import { Quiz } from "../interfaces/quizInterface";
 
 export const QUIZ_DATA: Quiz[] = [
   {
