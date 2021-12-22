@@ -23,10 +23,7 @@ export class QuizService {
   // 回答後に正否確認をするかどうかのフラグ値
   private _isConfirmAnswer: boolean = false;
 
-  constructor(
-    private router: Router,
-    private firestore: AngularFirestore,
-    ) {}
+  constructor(private router: Router, private firestore: AngularFirestore) {}
 
   // homeのngOnInitから実行される
   // 出題する問題やカウントの初期化、フラグの初期化
