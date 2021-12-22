@@ -14,8 +14,8 @@ import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
-  quiz?: Quiz;
-  quizCount?: number;
+  quiz!: Quiz;
+  quizCount!: number;
 
   constructor(
     private router: Router,

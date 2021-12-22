@@ -9,8 +9,8 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
-  quizCount?: number;
-  correctCount?: number;
+  quizCount!: number;
+  correctCount!: number;
 
   constructor(
     private router: Router,
