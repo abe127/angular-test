@@ -69,7 +69,6 @@ export class QuizService {
   checkAnswer(choice: Choice): void {
     if (choice.isAnswer) ++this._correctCount;
     ++this._quizIndex;
-    this.nextPage();
   }
 
   nextPage(): void {

@@ -49,9 +49,11 @@ export class QuizComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(() => {
         this.quizService.checkAnswer(choice);
+        this.quizService.nextPage();
       });
     } else {
       this.quizService.checkAnswer(choice);
+      this.quizService.nextPage();
     }
   }
 
