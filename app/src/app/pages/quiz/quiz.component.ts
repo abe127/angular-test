@@ -37,7 +37,7 @@ export class QuizComponent implements OnInit {
   }
 
   chooseAnswer(choice: Choice) {
-    if(this.quizService.isConfirmAnswer){
+    if (this.quizService.isConfirmAnswer) {
       const dialogData = {
         isCorrect: choice.isAnswer,
         explanation: this.quiz?.explanation,
@@ -50,7 +50,7 @@ export class QuizComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.quizService.checkAnswer(choice);
       });
-    }else{
+    } else {
       this.quizService.checkAnswer(choice);
     }
   }

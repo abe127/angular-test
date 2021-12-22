@@ -36,11 +36,11 @@ export class QuizService {
     this._correctCount = 0;
     this._isQuizzing = false;
     // ローカルストレージから過去の総出題数、総正答数を取得
-    const storedResult = localStorage.getItem('question-total-result')??false;
-    if(storedResult){
-      const parsedResult = JSON.parse(storedResult)
-      this._totalQuizCount = parsedResult.totalQuizCount??0;
-      this._totalCorrectCount = parsedResult.totalCorrectCount??0;
+    const storedResult = localStorage.getItem('question-total-result') ?? false;
+    if (storedResult) {
+      const parsedResult = JSON.parse(storedResult);
+      this._totalQuizCount = parsedResult.totalQuizCount ?? 0;
+      this._totalCorrectCount = parsedResult.totalCorrectCount ?? 0;
     }
   }
 
@@ -81,11 +81,11 @@ export class QuizService {
   }
 
   // 総出題数、総正答数を更新してローカルストレージへ保存
-  setResult(): void{
+  setResult(): void {
     const newResult = {
-      totalQuizCount : this._totalQuizCount + QUIZ_COUNT,
-      totalCorrectCount: this._totalCorrectCount + this._correctCount
-    }
+      totalQuizCount: this._totalQuizCount + QUIZ_COUNT,
+      totalCorrectCount: this._totalCorrectCount + this._correctCount,
+    };
     localStorage.setItem('question-total-result', JSON.stringify(newResult));
   }
 
@@ -93,20 +93,19 @@ export class QuizService {
   get quizIndex(): number {
     return this._quizIndex;
   }
-  get correctCount(): number{
+  get correctCount(): number {
     return this._correctCount;
   }
-  get isQuizzing(): boolean{
+  get isQuizzing(): boolean {
     return this._isQuizzing;
   }
-  get isConfirmAnswer(): boolean{
+  get isConfirmAnswer(): boolean {
     return this._isConfirmAnswer;
   }
-  get totalQuizCount(): number{
+  get totalQuizCount(): number {
     return this._totalQuizCount;
   }
-  get totalCorrectCount(): number{
+  get totalCorrectCount(): number {
     return this._totalCorrectCount;
   }
-
 }
