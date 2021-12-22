@@ -24,9 +24,9 @@ export class HomeComponent implements OnInit {
     this.correctAnswerRate = this.totalQuizCount > 0 ? Math.round(this.totalCorrectCount * 100 / this.totalQuizCount) : 0;
   }
 
-  startQuiz(isConfirmAnswer:boolean) {
-    this.quizService.startQuizGame(isConfirmAnswer);
-    this.router.navigate(['quiz']);
+  startQuiz(isConfirmAnswer: boolean) {
+    this.quizService.startQuizGame(isConfirmAnswer).then(() => {
+      this.router.navigate(['quiz']);
+    });
   }
-
 }

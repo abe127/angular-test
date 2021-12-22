@@ -43,14 +43,22 @@ export class QuizService {
 
   // homeの「クイズスタート」ボタンから実行される
   // これから出題する問題の取得、出題数、正答数を初期化
-  startQuizGame(isConfirmAnswer: boolean) {
-    const quizCollection = this.firestore.collection<Quiz>('quizzes');
-    quizCollection.valueChanges().subscribe(quizzes => {
-      this._quizzes = _.sampleSize(quizzes, QUIZ_COUNT);
+  async startQuizGame(isConfirmAnswer: boolean) {
+    await this.getData().then((data: Quiz[]) => {
+      this._quizzes = data;
       this._quizIndex = 0;
       this._correctCount = 0;
       this._isQuizzing = true;
       this._isConfirmAnswer = isConfirmAnswer;
+    });
+  }
+
+  getData(): Promise<Quiz[]> {
+    return new Promise((resolve, reject) => {
+      const quizCollection = this.firestore.collection<Quiz>('quizzes');
+      quizCollection.valueChanges().subscribe((quizzes) => {
+        resolve(_.sampleSize(quizzes, QUIZ_COUNT));
+      });
     });
   }
 
