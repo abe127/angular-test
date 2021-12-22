@@ -30,7 +30,7 @@ export class QuizComponent implements OnInit {
     if (this.quizService.isQuizzing) {
       this.quiz = this.quizService.getQuiz();
       this.quiz.choices = _.shuffle(this.quiz.choices);
-      this.quizCount = this.quizService.quizCount;
+      this.quizCount = this.quizService.quizIndex + 1;
     } else {
       this.router.navigate(['home']);
     }

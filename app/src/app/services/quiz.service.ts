@@ -14,7 +14,7 @@ export class QuizService {
   // 出題する問題を格納する変数
   private _quizzes: Quiz[] = [];
   // 出題数、正答数、総出題数、総正答数
-  private _quizCount: number = 0;
+  private _quizIndex: number = 0;
   private _correctCount: number = 0;
   private _totalQuizCount: number = 0;
   private _totalCorrectCount: number = 0;
@@ -32,7 +32,7 @@ export class QuizService {
   // 出題する問題やカウントの初期化、フラグの初期化
   initQuizGame(): void {
     this._quizzes = [];
-    this._quizCount = 0;
+    this._quizIndex = 0;
     this._correctCount = 0;
     this._isQuizzing = false;
     // ローカルストレージから過去の総出題数、総正答数を取得
@@ -50,7 +50,7 @@ export class QuizService {
     const quizCollection = this.firestore.collection<Quiz>('quizzes');
     quizCollection.valueChanges().subscribe(quizzes => {
       this._quizzes = _.sampleSize(quizzes, QUIZ_COUNT);
-      this._quizCount = 1;
+      this._quizIndex = 0;
       this._correctCount = 0;
       this._isQuizzing = true;
       this._isConfirmAnswer = isConfirmAnswer;
@@ -58,17 +58,17 @@ export class QuizService {
   }
 
   getQuiz(): Quiz {
-    return this._quizzes[this.quizCount - 1];
+    return this._quizzes[this._quizIndex];
   }
 
   checkAnswer(choice: Choice): void {
     if (choice.isAnswer) ++this._correctCount;
-    ++this._quizCount;
-    this.nextPage()
+    ++this._quizIndex;
+    this.nextPage();
   }
 
   nextPage(): void {
-    if (this.quizCount <= QUIZ_COUNT) {
+    if (this._quizIndex < QUIZ_COUNT) {
       this.router.navigate(['quiz']);
     } else {
       this.router.navigate(['result']);
@@ -76,7 +76,7 @@ export class QuizService {
   }
 
   endQuiz(): void {
-    this.setResult()
+    this.setResult();
     this.initQuizGame();
   }
 
@@ -90,8 +90,8 @@ export class QuizService {
   }
 
   // 上記で宣言したprivateな変数のgetter
-  get quizCount(): number{
-    return this._quizCount;
+  get quizIndex(): number {
+    return this._quizIndex;
   }
   get correctCount(): number{
     return this._correctCount;
