@@ -19,7 +19,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.quizService.isQuizzing) {
-      this.quizCount = this.quizService.quizIndex + 1;
+      this.quizCount = this.quizService.quizIndex;
       this.correctCount = this.quizService.correctCount;
       this.quizService.endQuiz();
     } else {
