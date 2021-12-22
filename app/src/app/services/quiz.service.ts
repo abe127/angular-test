@@ -33,7 +33,7 @@ export class QuizService {
     this._correctCount = 0;
     this._isQuizzing = false;
     // ローカルストレージから過去の総出題数、総正答数を取得
-    const storedResult = localStorage.getItem('question-total-result') ?? false;
+    const storedResult = localStorage.getItem('quiz-game-total-result') ?? false;
     if (storedResult) {
       const parsedResult = JSON.parse(storedResult);
       this._totalQuizCount = parsedResult.totalQuizCount ?? 0;
@@ -90,7 +90,7 @@ export class QuizService {
       totalQuizCount: this._totalQuizCount + QUIZ_COUNT,
       totalCorrectCount: this._totalCorrectCount + this._correctCount,
     };
-    localStorage.setItem('question-total-result', JSON.stringify(newResult));
+    localStorage.setItem('quiz-game-total-result', JSON.stringify(newResult));
   }
 
   // 上記で宣言したprivateな変数のgetter
