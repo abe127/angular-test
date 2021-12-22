@@ -9,8 +9,8 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./result.component.scss']
 })
 export class ResultComponent implements OnInit {
-  questionCount?: number;
-  answerCount?: number;
+  quizCount!: number;
+  correctCount!: number;
 
   constructor(
     private router: Router,
@@ -19,8 +19,8 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.quizService.isQuizzing) {
-      this.questionCount = this.quizService.questionCount - 1;
-      this.answerCount = this.quizService.answerCount;
+      this.quizCount = this.quizService.quizIndex;
+      this.correctCount = this.quizService.correctCount;
       this.quizService.endQuiz();
     } else {
       this.router.navigate(['home']);

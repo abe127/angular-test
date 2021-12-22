@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Quiz, Choice } from 'src/app/const/quiz';
+import { Quiz, Choice } from 'src/app/interfaces/quizInterface';
 import { QuizService } from 'src/app/services/quiz.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -14,8 +14,8 @@ import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
-  quiz?: Quiz;
-  questionCount?: number;
+  quiz!: Quiz;
+  quizCount!: number;
 
   constructor(
     private router: Router,
@@ -30,14 +30,14 @@ export class QuizComponent implements OnInit {
     if (this.quizService.isQuizzing) {
       this.quiz = this.quizService.getQuiz();
       this.quiz.choices = _.shuffle(this.quiz.choices);
-      this.questionCount = this.quizService.questionCount;
+      this.quizCount = this.quizService.quizIndex + 1;
     } else {
       this.router.navigate(['home']);
     }
   }
 
   chooseAnswer(choice: Choice) {
-    if(this.quizService.isConfirmAnswer){
+    if (this.quizService.isConfirmAnswer) {
       const dialogData = {
         isCorrect: choice.isAnswer,
         explanation: this.quiz?.explanation,
@@ -49,9 +49,11 @@ export class QuizComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(() => {
         this.quizService.checkAnswer(choice);
+        this.quizService.nextPage();
       });
-    }else{
+    } else {
       this.quizService.checkAnswer(choice);
+      this.quizService.nextPage();
     }
   }
 

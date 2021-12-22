@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { QuizService } from 'src/app/services/quiz.service';
 
@@ -8,22 +9,24 @@ import { QuizService } from 'src/app/services/quiz.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  totalAnswers: number = 0;
-  totalQuestions: number = 0;
+  totalCorrectCount: number = 0;
+  totalQuizCount: number = 0;
   correctAnswerRate: number = 0;
   constructor(
+    private router: Router,
     private quizService: QuizService
   ) { }
 
   ngOnInit(): void {
-    this.quizService.initQuiz();
-    this.totalAnswers = this.quizService.totalAnswers;
-    this.totalQuestions = this.quizService.totalQuestions;
-    this.correctAnswerRate = this.totalQuestions > 0 ? Math.round(this.totalAnswers * 100 / this.totalQuestions) : 0;
+    this.quizService.initQuizGame();
+    this.totalCorrectCount = this.quizService.totalCorrectCount;
+    this.totalQuizCount = this.quizService.totalQuizCount;
+    this.correctAnswerRate = this.totalQuizCount > 0 ? Math.round(this.totalCorrectCount * 100 / this.totalQuizCount) : 0;
   }
 
-  startQuiz(isConfirmAnswer:boolean) {
-    this.quizService.startQuiz(isConfirmAnswer);
+  startQuizGame(isConfirmAnswer: boolean) {
+    this.quizService.startQuizGame(isConfirmAnswer).then(() => {
+      this.router.navigate(['quiz']);
+    });
   }
-
 }

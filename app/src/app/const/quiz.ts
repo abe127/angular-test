@@ -1,13 +1,4 @@
-export interface Choice {
-  statement: string;
-  isAnswer: boolean;
-}
-
-export interface Quiz {
-  question: string;
-  choices: Choice[]
-  explanation: string;
-};
+import { Quiz } from "../interfaces/quizInterface";
 
 export const QUIZ_DATA: Quiz[] = [
   {

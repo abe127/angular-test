@@ -1,12 +1,12 @@
 <div class="container">
   <div class="result-container">
     <h2>正解率 {{correctAnswerRate}} %</h2>
-    <p>出題数:{{totalQuestions}}問 正解数:{{totalAnswers}}問</p>
+    <p>出題数:{{totalQuizCount}}問 正解数:{{totalCorrectCount}}問</p>
   </div>
   <p>
-    <button mat-raised-button color="primary" (click)="startQuiz(false)">クイズスタート</button>
+    <button mat-raised-button color="primary" (click)="startQuizGame(false)">クイズスタート</button>
   </p>
   <p>
-    <button mat-raised-button color="primary" (click)="startQuiz(true)">クイズスタート（正否確認有）</button>
+    <button mat-raised-button color="primary" (click)="startQuizGame(true)">クイズスタート（正否確認有）</button>
   </p>
 </div>
