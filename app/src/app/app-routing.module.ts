@@ -8,11 +8,12 @@ import { SampleComponent } from './sample/sample.component';
 import { HomeComponent } from './pages/home/home.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { ResultComponent } from './pages/result/result.component';
+import { TestGuardGuard } from './nakamura/guard/test-guard.guard';
 
 const routes: Routes = [
   { path: 'abe', component: AbeComponent },
   { path: 'kusano', component: KusanoComponent },
-  { path: 'nakamura', component: NakamuraComponent },
+  { path: 'nakamura', component: NakamuraComponent, canDeactivate: [TestGuardGuard]},
   { path: 'sample', component: SampleComponent },
   { path: 'home', component: HomeComponent },
   { path: 'quiz', component: QuizComponent },

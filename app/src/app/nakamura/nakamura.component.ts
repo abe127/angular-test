@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { DateAdapter, NativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatTable, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 
@@ -37,7 +38,9 @@ export class NakamuraComponent {
   dataSource = PERSONAL_DATA;
   @ViewChild(MatTable) table: MatTable<PersonInfo> | undefined;
 
-  constructor(dateAdapter: DateAdapter<NativeDateAdapter>) {
+  constructor(
+    private router: Router,
+    dateAdapter: DateAdapter<NativeDateAdapter>) {
     dateAdapter.setLocale('ja');
   }
 
@@ -52,5 +55,8 @@ export class NakamuraComponent {
     this.dataSource.push(this.person);
     this.table?.renderRows();
     this.person.no = this.dataSource.length;
+  }
+  goToKusano(){
+    this.router.navigate(['kusano']);
   }
 }
